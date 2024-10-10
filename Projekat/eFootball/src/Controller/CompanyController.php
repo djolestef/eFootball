@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Services\Company\CompanyService;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -24,7 +25,7 @@ class CompanyController
      * @param Request $request
      * @param         $id
      *
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function getCompanyByIdAction(Request $request, $id)
     {

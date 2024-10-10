@@ -2,7 +2,9 @@
 
 namespace App\Services\Company;
 
+use App\Entity\Company;
 use App\Repository\CompanyRepository;
+use Doctrine\ORM\NonUniqueResultException;
 
 class CompanyService
 {
@@ -17,10 +19,10 @@ class CompanyService
     /**
      * @param $id
      *
-     * @return \App\Entity\Company|null
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return Company|null
+     * @throws NonUniqueResultException
      */
-    public function getCompanyById($id)
+    public function getCompanyById($id): ?Company
     {
         return $this->companyRepository->findOneCompanyById($id);
     }

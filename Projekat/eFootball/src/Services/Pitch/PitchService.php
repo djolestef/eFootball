@@ -6,6 +6,8 @@ use App\Entity\Company;
 use App\Entity\Pitch;
 use App\Repository\PitchRepository;
 use App\Services\Company\CompanyService;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\ORMException;
 use phpDocumentor\Reflection\Type;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -26,10 +28,10 @@ class PitchService
     /**
      * @param $id
      *
-     * @return \App\Entity\Pitch|null
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return Pitch|null
+     * @throws NonUniqueResultException
      */
-    public function getPitchById($id)
+    public function getPitchById($id): ?Pitch
     {
         return $this->pitchRepository->findOnePitchById($id);
     }
@@ -37,10 +39,10 @@ class PitchService
     /**
      * @param $companyId
      *
-     * @return \App\Entity\Pitch[]
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return Pitch[]
+     * @throws NonUniqueResultException
      */
-    public function getPitchesByCompanyId($companyId)
+    public function getPitchesByCompanyId($companyId): array
     {
         /** @var Company $company */
         $company = $this->companyService->getCompanyById($companyId);
@@ -57,7 +59,7 @@ class PitchService
      * @param         $type
      * @param         $price
      *
-     * @throws \Doctrine\ORM\ORMException
+     * @throws ORMException
      */
     public function createPitch(Company $company, $dimension, $type, $price)
     {

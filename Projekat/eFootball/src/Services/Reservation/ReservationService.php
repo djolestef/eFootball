@@ -5,8 +5,10 @@ namespace App\Services\Reservation;
 
 
 use App\Entity\Company;
+use App\Entity\Reservation;
 use App\Repository\ReservationRepository;
 use App\Services\Company\CompanyService;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ReservationService
@@ -26,10 +28,10 @@ class ReservationService
     /**
      * @param $id
      *
-     * @return \App\Entity\Reservation|null
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return Reservation|null
+     * @throws NonUniqueResultException
      */
-    public function getReservationById($id)
+    public function getReservationById($id): Reservation
     {
         return $this->reservationRepository->findOneReservationById($id);
     }
@@ -38,7 +40,7 @@ class ReservationService
      * @param $companyId
      *
      * @return int|mixed|string
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function getReservationsByCompanyId($companyId)
     {

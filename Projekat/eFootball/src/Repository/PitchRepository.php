@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Company;
 use App\Entity\Pitch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -24,7 +26,7 @@ class PitchRepository extends ServiceEntityRepository
      * @param $id
      *
      * @return Pitch|null
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function findOnePitchById($id): ?Pitch
     {
@@ -38,7 +40,7 @@ class PitchRepository extends ServiceEntityRepository
     /**
      * @param Pitch $pitch
      *
-     * @throws \Doctrine\ORM\ORMException
+     * @throws ORMException
      */
     public function save(Pitch  $pitch)
     {

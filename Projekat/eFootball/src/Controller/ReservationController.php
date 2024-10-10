@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Reservation;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Reservation\ReservationService;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -24,17 +26,12 @@ class ReservationController
      * @param Request $request
      * @param         $id
      *
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return Reservation|null
+     * @throws NonUniqueResultException
      */
-    public function getReservationByIdAction(Request $request, $id)
+    public function getReservationByIdAction(Request $request, $id): ?Reservation
     {
-        $reservation = $this->reservationService->getreservationById($id);
-        if (empty($reservation)) {
-            throw new NotFoundHttpException('Can not find reservation with given id');
-        }
-
-//        return $reservation;
-        dd($reservation);
+        return $this->reservationService->getreservationById($id);
     }
 
     /**
@@ -43,15 +40,12 @@ class ReservationController
      * @param Request $request
      * @param         $companyId
      *
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return Reservation[]
+     * @throws NonUniqueResultException
      */
-    public function getReservationsByCompanyIdAction(Request $request, $companyId)
+    public function getReservationsByCompanyIdAction(Request $request, $companyId): array
     {
-        /** @var ArrayCollection $reservations */
-        $reservations = $this->reservationService->getreservationsByCompanyId($companyId);
-
-//        return $reservations;
-        dd($reservations);
+        return $this->reservationService->getreservationsByCompanyId($companyId);
     }
 
 }

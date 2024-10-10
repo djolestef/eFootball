@@ -4,7 +4,9 @@
 namespace App\Controller;
 
 
+use App\Entity\Pitch;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Pitch\PitchService;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,17 +28,16 @@ class PitchController
      * @param Request $request
      * @param         $id
      *
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
-    public function getPitchByIdAction(Request $request, $id)
+    public function getPitchByIdAction(Request $request, $id): Pitch
     {
         $pitch = $this->pitchService->getpitchById($id);
         if (empty($pitch)) {
             throw new NotFoundHttpException('Can not find pitch with given id');
         }
 
-//        return $pitch;
-        dd($pitch);
+        return $pitch;
     }
 
     /**
@@ -45,15 +46,11 @@ class PitchController
      * @param Request $request
      * @param         $companyId
      *
-     * @return \App\Entity\Pitch[]
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return Pitch[]
+     * @throws NonUniqueResultException
      */
-    public function getPitchesByCompanyIdAction(Request $request, $companyId)
+    public function getPitchesByCompanyIdAction(Request $request, $companyId): array
     {
-        /** @var ArrayCollection $pitches */
-        $pitches = $this->pitchService->getPitchesByCompanyId($companyId);
-
-//        return $pitches;
-        dd($pitches->getValues());
+        return $this->pitchService->getPitchesByCompanyId($companyId);
     }
 }
